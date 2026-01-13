@@ -8,6 +8,7 @@ interface ChatListProps {
     searchQuery: string;
     selectedChatId: number | null;
     onChatSelect: (chat: Chat) => void;
+    onTogglePin?: (chatId: number) => void;
 }
 
 export default function ChatList({
@@ -15,7 +16,8 @@ export default function ChatList({
                                      activeTab,
                                      searchQuery,
                                      selectedChatId,
-                                     onChatSelect
+                                     onChatSelect,
+                                     onTogglePin
                                  }: ChatListProps) {
 
     const filterChats = () => {
@@ -38,12 +40,12 @@ export default function ChatList({
         const pinned = filtered.filter(chat => chat.isPinned);
         const unpinned = filtered.filter(chat => !chat.isPinned);
 
-        return [...pinned, ...unpinned];
+        return { pinned, unpinned };
     };
 
-    const filteredChats = filterChats();
+    const { pinned, unpinned } = filterChats();
 
-    if (filteredChats.length === 0) {
+    if (pinned.length === 0 && unpinned.length === 0) {
         return (
             <div className="chat-list-empty">
                 No chats found
@@ -53,14 +55,41 @@ export default function ChatList({
 
     return (
         <div className="chat-list">
-            {filteredChats.map((chat) => (
-                <ChatItem
-                    key={chat.id}
-                    chat={chat}
-                    isSelected={chat.id === selectedChatId}
-                    onClick={() => onChatSelect(chat)}
-                />
-            ))}
+            {pinned.length > 0 && (
+                <div className="chat-section">
+                    <div className="section-header">Pinned Chats</div>
+                    {pinned.map((chat) => (
+                        <ChatItem
+                            key={chat.id}
+                            chat={chat}
+                            isSelected={chat.id === selectedChatId}
+                            onClick={() => onChatSelect(chat)}
+                            onTogglePin={onTogglePin}
+                        />
+                    ))}
+                </div>
+            )}
+
+            {unpinned.length > 0 && (
+                <div className="chat-section">
+                    {pinned.length > 0 && (
+                        <div className="section-header">
+                            {activeTab === 'Groups' ? 'Group Chats' :
+                                activeTab === 'Friends' ? 'Friend Chats' :
+                                    'All Chats'}
+                        </div>
+                    )}
+                    {unpinned.map((chat) => (
+                        <ChatItem
+                            key={chat.id}
+                            chat={chat}
+                            isSelected={chat.id === selectedChatId}
+                            onClick={() => onChatSelect(chat)}
+                            onTogglePin={onTogglePin}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

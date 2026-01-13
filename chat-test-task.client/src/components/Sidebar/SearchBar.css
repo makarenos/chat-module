@@ -31,7 +31,7 @@
 .search-input:focus {
     border-color: var(--accent-malahit);
     background: var(--bg-tertiary);
-    box-shadow: 0 0 0 3px rgba(0, 217, 163, 0.08);
+    box-shadow: 0 0 0 3px rgba(0, 217, 163, 0.1);
 }
 
 .search-input::placeholder {
@@ -40,11 +40,12 @@
 
 .clear-btn {
     position: absolute;
-    right: 28px;
-    top: 10px;
-    width: 30px;
-    height: 30px;
-    border: none;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border-color);
     background: var(--bg-tertiary);
     border-radius: 50%;
     font-size: 16px;
@@ -58,6 +59,7 @@
 
 .clear-btn:hover {
     background: var(--accent-malahit);
+    border-color: var(--accent-malahit);
     color: var(--bg-primary);
-    transform: scale(1.08);
+    transform: translateY(-50%) scale(1.1);
 }

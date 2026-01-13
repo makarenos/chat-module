@@ -60,3 +60,45 @@
     color: var(--text-tertiary);
     font-size: 14px;
 }
+
+.sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    background: var(--bg-primary);
+}
+
+.sidebar-theme-toggle {
+    width: 48px;
+    height: 48px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.sidebar-theme-toggle:hover {
+    transform: scale(1.08);
+    background: var(--accent-malahit);
+    border-color: var(--accent-malahit);
+    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.3);
+}
+
+.sidebar-theme-toggle:hover svg {
+    color: var(--bg-primary);
+}
+
+.sidebar-theme-toggle svg {
+    width: 24px;
+    height: 24px;
+    color: var(--text-primary);
+    transition: color 0.3s;
+}

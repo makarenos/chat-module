@@ -1,31 +1,40 @@
 ﻿:root {
     --bg-primary: #ffffff;
-    --bg-secondary: #f9fafb;
-    --bg-tertiary: #f3f4f6;
-    --text-primary: #111827;
-    --text-secondary: #6b7280;
-    --text-tertiary: #9ca3af;
-    --border-color: #e5e7eb;
+    --bg-secondary: #f7f8fa;
+    --bg-tertiary: #ebedf0;
+    --text-primary: #000000;
+    --text-secondary: #707579;
+    --text-tertiary: #a2acb4;
+    --border-color: #e4e7eb;
     --accent-primary: #3b82f6;
-    --accent-hover: #2563eb;
-    --message-own: #1f2937;
-    --message-other: #3b82f6;
+    --accent-blue: #3b82f6;
+    --accent-malahit: #00d9a3;
+    --accent-hover: #00c692;
+    --message-own: #effdde;
+    --message-other: #ffffff;
     --sidebar-width: 360px;
+    --tab-active-bg: #3b82f6;
+    --tab-active-text: #ffffff;
+    --shadow-light: 0 1px 2px rgba(16, 24, 40, 0.05);
 }
 
 [data-theme="dark"] {
-    --bg-primary: #1a1f2e;
-    --bg-secondary: #13161f;
-    --bg-tertiary: #252a3a;
+    --bg-primary: #0f1419;
+    --bg-secondary: #0a0d12;
+    --bg-tertiary: #1a1f2e;
     --text-primary: #e8ecf4;
     --text-secondary: #9ca6b8;
     --text-tertiary: #6b7485;
-    --border-color: #2d3342;
-    --accent-primary: #00d9a3;
+    --border-color: #1e2735;
+    --accent-primary: #3b82f6;
+    --accent-blue: #3b82f6;
     --accent-malahit: #00d9a3;
     --accent-hover: #00c692;
-    --message-own: #252a3a;
+    --message-own: #1a1f2e;
     --message-other: #00d9a3;
+    --tab-active-bg: #3b82f6;
+    --tab-active-text: #ffffff;
+    --shadow-light: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -50,41 +59,6 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
     background: var(--bg-secondary);
-}
-
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.theme-toggle:hover {
-    transform: scale(1.08);
-    background: var(--accent-primary);
-    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.25);
-}
-
-.theme-toggle:hover .theme-icon {
-    color: var(--bg-primary);
-}
-
-.theme-icon {
-    width: 22px;
-    height: 22px;
-    color: var(--text-secondary);
-    transition: color 0.3s;
 }
 
 .loading {

@@ -1,18 +1,18 @@
 .message-input-container {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 20px 24px;
+    gap: 16px;
+    padding: 24px 28px;
     background: var(--bg-primary);
     border-top: 1px solid var(--border-color);
 }
 
 .input-btn {
-    width: 42px;
-    height: 42px;
-    border: none;
+    width: 58px;
+    height: 58px;
+    border: 1px solid var(--border-color);
     background: var(--bg-tertiary);
-    color: var(--text-secondary);
+    color: var(--text-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -25,21 +25,22 @@
 .input-btn:hover {
     background: var(--accent-malahit);
     color: var(--bg-primary);
+    border-color: var(--accent-malahit);
     transform: scale(1.08);
-    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.3);
 }
 
 .input-btn svg {
-    width: 22px;
-    height: 22px;
+    width: 32px;
+    height: 32px;
 }
 
 .message-input {
     flex: 1;
-    padding: 12px 20px;
+    padding: 16px 24px;
     border: 1px solid var(--border-color);
-    border-radius: 24px;
-    font-size: 14px;
+    border-radius: 28px;
+    font-size: 15px;
     outline: none;
     transition: all 0.25s ease;
     background: var(--bg-secondary);
@@ -49,7 +50,7 @@
 .message-input:focus {
     border-color: var(--accent-malahit);
     background: var(--bg-tertiary);
-    box-shadow: 0 0 0 3px rgba(0, 217, 163, 0.08);
+    box-shadow: 0 0 0 3px rgba(0, 217, 163, 0.12);
 }
 
 .message-input::placeholder {
@@ -57,9 +58,9 @@
 }
 
 .send-btn {
-    width: 46px;
-    height: 46px;
-    border: none;
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--accent-malahit);
     background: var(--accent-malahit);
     color: var(--bg-primary);
     cursor: pointer;
@@ -69,23 +70,25 @@
     border-radius: 50%;
     transition: all 0.25s ease;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.35);
 }
 
 .send-btn:hover:not(:disabled) {
     background: var(--accent-hover);
+    border-color: var(--accent-hover);
     transform: scale(1.08);
-    box-shadow: 0 6px 16px rgba(0, 217, 163, 0.35);
+    box-shadow: 0 6px 16px rgba(0, 217, 163, 0.45);
 }
 
 .send-btn:disabled {
     background: var(--bg-tertiary);
+    border-color: var(--border-color);
     color: var(--text-tertiary);
     cursor: not-allowed;
     box-shadow: none;
 }
 
 .send-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
 }
