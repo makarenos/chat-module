@@ -10,19 +10,25 @@ function App() {
     const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
     const [loading, setLoading] = useState(true);
     const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+    const [mutedChats, setMutedChats] = useState<Set<number>>(new Set());
 
     useEffect(() => {
         loadChats();
         const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' || 'dark';
         setTheme(savedTheme);
         document.documentElement.setAttribute('data-theme', savedTheme);
+
+        const savedMuted = localStorage.getItem('mutedChats');
+        if (savedMuted) {
+            setMutedChats(new Set(JSON.parse(savedMuted)));
+        }
     }, []);
 
     const loadChats = async () => {
         try {
             const data = await api.getChats();
             setChats(data);
-            if (data.length > 0) {
+            if (data.length > 0 && !selectedChat) {
                 setSelectedChat(data[0]);
             }
         } catch (error) {
@@ -30,6 +36,10 @@ function App() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleMessageSent = async () => {
+        await loadChats();
     };
 
     const toggleTheme = () => {
@@ -49,6 +59,19 @@ function App() {
         );
     };
 
+    const handleToggleMute = (chatId: number) => {
+        setMutedChats(prev => {
+            const newMuted = new Set(prev);
+            if (newMuted.has(chatId)) {
+                newMuted.delete(chatId);
+            } else {
+                newMuted.add(chatId);
+            }
+            localStorage.setItem('mutedChats', JSON.stringify([...newMuted]));
+            return newMuted;
+        });
+    };
+
     if (loading) {
         return <div className="loading">Loading...</div>;
     }
@@ -62,10 +85,16 @@ function App() {
                 onTogglePin={handleTogglePin}
                 theme={theme}
                 onToggleTheme={toggleTheme}
+                mutedChats={mutedChats}
+                onToggleMute={handleToggleMute}
             />
 
             {selectedChat ? (
-                <ChatWindow chat={selectedChat} />
+                <ChatWindow
+                    chat={selectedChat}
+                    onMessageSent={handleMessageSent}
+                    onToggleMute={handleToggleMute}
+                />
             ) : (
                 <div className="chat-window-empty">
                     <p>Select a chat to start messaging</p>

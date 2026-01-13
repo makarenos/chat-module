@@ -2,10 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 26px;
+    padding: 20px 24px;
     background: var(--bg-primary);
-    border-bottom: 2px solid var(--border-color);
-    position: relative;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .chat-header-info {
@@ -16,49 +15,42 @@
 
 .chat-header-title {
     margin: 0;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--text-primary);
 }
 
 .chat-header-subtitle {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--accent-malahit);
 }
 
 .chat-header-actions {
     display: flex;
-    gap: 12px;
-    align-items: center;
+    gap: 8px;
 }
 
 .header-btn {
     width: 56px;
     height: 56px;
-    border: 1px solid var(--border-color);
+    border: none;
     background: var(--bg-tertiary);
-    color: var(--text-primary);
+    color: var(--text-secondary);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     transition: all 0.25s ease;
-    position: relative;
-}
-
-.header-btn svg {
-    width: 28px;
-    height: 28px;
+    outline: none;
 }
 
 .header-btn:hover {
     background: var(--accent-malahit);
     color: var(--bg-primary);
-    border-color: var(--accent-malahit);
     transform: scale(1.08);
-    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.35);
+    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.2);
 }
 
 .header-menu {
@@ -70,31 +62,108 @@
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     min-width: 200px;
-    z-index: 1000;
     overflow: hidden;
+    z-index: 1000;
 }
 
 .menu-item {
+    width: 100%;
     padding: 14px 18px;
-    font-size: 14px;
+    border: none;
+    background: transparent;
     color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     gap: 12px;
-    border: none;
-    background: transparent;
-    width: 100%;
+    transition: all 0.2s ease;
     text-align: left;
+    outline: none;
 }
 
 .menu-item:hover {
     background: var(--bg-tertiary);
+    color: var(--accent-malahit);
 }
 
 .menu-item svg {
     width: 18px;
     height: 18px;
+    flex-shrink: 0;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: var(--bg-primary);
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-title {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.modal-message {
+    margin: 0 0 24px 0;
+    font-size: 15px;
     color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.modal-button {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent-malahit);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.modal-button:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.3);
 }

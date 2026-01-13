@@ -1,8 +1,9 @@
 .message {
-     display: flex;
-     margin-bottom: 18px;
-     animation: slideIn 0.25s ease-out;
- }
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+    animation: slideIn 0.25s ease-out;
+}
 
 @keyframes slideIn {
     from {
@@ -16,11 +17,19 @@
 }
 
 .message-left {
-    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .message-right {
-    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.message-username {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-malahit);
+    margin-bottom: 4px;
+    margin-left: 4px;
 }
 
 .message-bubble {

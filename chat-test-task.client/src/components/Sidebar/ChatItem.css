@@ -136,6 +136,11 @@
     transform: scale(1.2);
 }
 
+.mute-icon.muted {
+    color: #ef4444;
+    opacity: 1;
+}
+
 .pin-icon {
     color: var(--text-tertiary);
     transform: rotate(45deg);

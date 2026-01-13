@@ -26,6 +26,9 @@ export default function Message({ message, isCurrentUser }: MessageProps) {
 
     return (
         <div className={`message ${isCurrentUser ? 'message-right' : 'message-left'}`}>
+            {!isCurrentUser && message.user && (
+                <span className="message-username">{message.user.username}</span>
+            )}
             <div className="message-bubble">
                 <p className="message-text">{message.text}</p>
                 <span className="message-time">{formatTime(message.timestamp)}</span>

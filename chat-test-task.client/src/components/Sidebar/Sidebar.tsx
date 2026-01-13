@@ -9,9 +9,11 @@ interface SidebarProps {
     chats: Chat[];
     selectedChatId: number | null;
     onChatSelect: (chat: Chat) => void;
-    onTogglePin?: (chatId: number) => void;
+    onTogglePin: (chatId: number) => void;
     theme: 'light' | 'dark';
     onToggleTheme: () => void;
+    mutedChats: Set<number>;
+    onToggleMute: (chatId: number) => void;
 }
 
 export default function Sidebar({
@@ -20,7 +22,9 @@ export default function Sidebar({
                                     onChatSelect,
                                     onTogglePin,
                                     theme,
-                                    onToggleTheme
+                                    onToggleTheme,
+                                    mutedChats,
+                                    onToggleMute
                                 }: SidebarProps) {
     const [activeTab, setActiveTab] = useState<TabType>('All');
     const [searchQuery, setSearchQuery] = useState('');
@@ -36,8 +40,9 @@ export default function Sidebar({
                 selectedChatId={selectedChatId}
                 onChatSelect={onChatSelect}
                 onTogglePin={onTogglePin}
+                mutedChats={mutedChats}
+                onToggleMute={onToggleMute}
             />
-
             <div className="sidebar-footer">
                 <button
                     className="sidebar-theme-toggle"

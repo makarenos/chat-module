@@ -6,7 +6,7 @@
 .search-icon {
     position: absolute;
     left: 30px;
-    top: 14px;
+    top: 12px;
     color: var(--text-tertiary);
     pointer-events: none;
     transition: color 0.25s;
@@ -31,7 +31,7 @@
 .search-input:focus {
     border-color: var(--accent-malahit);
     background: var(--bg-tertiary);
-    box-shadow: 0 0 0 3px rgba(0, 217, 163, 0.1);
+    box-shadow: 0 0 0 3px rgba(0, 217, 163, 0.08);
 }
 
 .search-input::placeholder {
@@ -40,12 +40,11 @@
 
 .clear-btn {
     position: absolute;
-    right: 24px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 28px;
-    height: 28px;
-    border: 1px solid var(--border-color);
+    right: 28px;
+    top: 6px;
+    width: 30px;
+    height: 30px;
+    border: none;
     background: var(--bg-tertiary);
     border-radius: 50%;
     font-size: 16px;
@@ -55,11 +54,11 @@
     align-items: center;
     justify-content: center;
     transition: all 0.25s ease;
+    outline: none;
 }
 
 .clear-btn:hover {
     background: var(--accent-malahit);
-    border-color: var(--accent-malahit);
     color: var(--bg-primary);
-    transform: translateY(-50%) scale(1.1);
+    transform: scale(1.08);
 }

@@ -8,9 +8,11 @@ import './ChatWindow.css';
 
 interface ChatWindowProps {
     chat: Chat;
+    onMessageSent?: () => void;
+    onToggleMute: (chatId: number) => void;
 }
 
-export default function ChatWindow({ chat }: ChatWindowProps) {
+export default function ChatWindow({ chat, onMessageSent, onToggleMute }: ChatWindowProps) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [loading, setLoading] = useState(false);
 
@@ -39,6 +41,10 @@ export default function ChatWindow({ chat }: ChatWindowProps) {
                 text: text
             });
             setMessages([...messages, newMessage]);
+
+            if (onMessageSent) {
+                onMessageSent();
+            }
         } catch (error) {
             console.error('Failed to send message:', error);
         }
@@ -46,7 +52,7 @@ export default function ChatWindow({ chat }: ChatWindowProps) {
 
     return (
         <div className="chat-window">
-            <ChatHeader chat={chat} />
+            <ChatHeader chat={chat} onToggleMute={onToggleMute} />
 
             {loading ? (
                 <div className="chat-window-loading">

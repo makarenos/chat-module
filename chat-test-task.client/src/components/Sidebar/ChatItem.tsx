@@ -6,9 +6,11 @@ interface ChatItemProps {
     isSelected: boolean;
     onClick: () => void;
     onTogglePin?: (chatId: number) => void;
+    isMuted: boolean;
+    onToggleMute: (chatId: number) => void;
 }
 
-export default function ChatItem({ chat, isSelected, onClick, onTogglePin }: ChatItemProps) {
+export default function ChatItem({ chat, isSelected, onClick, onTogglePin, isMuted, onToggleMute }: ChatItemProps) {
     const formatTime = (dateString: string) => {
         const date = new Date(dateString);
         const now = new Date();
@@ -44,6 +46,11 @@ export default function ChatItem({ chat, isSelected, onClick, onTogglePin }: Cha
         }
     };
 
+    const handleMuteClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onToggleMute(chat.id);
+    };
+
     return (
         <div
             className={`chat-item ${isSelected ? 'selected' : ''}`}
@@ -65,19 +72,28 @@ export default function ChatItem({ chat, isSelected, onClick, onTogglePin }: Cha
                     <p className="chat-preview">{chat.lastMessage}</p>
                     <div className="chat-badges">
                         <svg
-                            className="mute-icon"
+                            className={`mute-icon ${isMuted ? 'muted' : ''}`}
                             width="16"
                             height="16"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="2"
-                            onClick={(e) => e.stopPropagation()}
-                            title="Mute/Unmute"
+                            onClick={handleMuteClick}
+                            title={isMuted ? 'Unmute' : 'Mute'}
                         >
-                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                            <line x1="23" y1="9" x2="17" y2="15"></line>
-                            <line x1="17" y1="9" x2="23" y2="15"></line>
+                            {isMuted ? (
+                                <>
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                                </>
+                            ) : (
+                                <>
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                                </>
+                            )}
                         </svg>
 
                         <svg

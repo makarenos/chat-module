@@ -9,6 +9,8 @@ interface ChatListProps {
     selectedChatId: number | null;
     onChatSelect: (chat: Chat) => void;
     onTogglePin?: (chatId: number) => void;
+    mutedChats: Set<number>;
+    onToggleMute: (chatId: number) => void;
 }
 
 export default function ChatList({
@@ -17,7 +19,9 @@ export default function ChatList({
                                      searchQuery,
                                      selectedChatId,
                                      onChatSelect,
-                                     onTogglePin
+                                     onTogglePin,
+                                     mutedChats,
+                                     onToggleMute
                                  }: ChatListProps) {
 
     const filterChats = () => {
@@ -65,6 +69,8 @@ export default function ChatList({
                             isSelected={chat.id === selectedChatId}
                             onClick={() => onChatSelect(chat)}
                             onTogglePin={onTogglePin}
+                            isMuted={mutedChats.has(chat.id)}
+                            onToggleMute={onToggleMute}
                         />
                     ))}
                 </div>
@@ -86,6 +92,8 @@ export default function ChatList({
                             isSelected={chat.id === selectedChatId}
                             onClick={() => onChatSelect(chat)}
                             onTogglePin={onTogglePin}
+                            isMuted={mutedChats.has(chat.id)}
+                            onToggleMute={onToggleMute}
                         />
                     ))}
                 </div>
