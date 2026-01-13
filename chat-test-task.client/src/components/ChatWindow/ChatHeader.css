@@ -2,27 +2,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
+    padding: 20px 24px;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .chat-header-info {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
 }
 
 .chat-header-title {
     margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #111827;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
 .chat-header-subtitle {
     font-size: 13px;
-    color: #6b7280;
+    font-weight: 600;
+    color: var(--accent-malahit);
 }
 
 .chat-header-actions {
@@ -31,20 +32,22 @@
 }
 
 .header-btn {
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     border: none;
-    background: transparent;
-    color: #6b7280;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    transition: all 0.2s;
+    border-radius: 50%;
+    transition: all 0.25s ease;
 }
 
 .header-btn:hover {
-    background: #f3f4f6;
-    color: #3b82f6;
+    background: var(--accent-malahit);
+    color: var(--bg-primary);
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(0, 217, 163, 0.2);
 }

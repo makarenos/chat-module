@@ -1,4 +1,5 @@
 import type { Chat } from '../../types';
+import './ChatItem.css';
 
 interface ChatItemProps {
     chat: Chat;

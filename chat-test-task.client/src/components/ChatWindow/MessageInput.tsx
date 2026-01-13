@@ -24,16 +24,18 @@ export default function MessageInput({ onSend }: MessageInputProps) {
 
     return (
         <div className="message-input-container">
-            <button className="input-btn" title="Emoji (UI only)">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10 0C4.486 0 0 4.486 0 10s4.486 10 10 10 10-4.486 10-10S15.514 0 10 0zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/>
-                    <path d="M7 9c.828 0 1.5-.672 1.5-1.5S7.828 6 7 6s-1.5.672-1.5 1.5S6.172 9 7 9zm6 0c.828 0 1.5-.672 1.5-1.5S13.828 6 13 6s-1.5.672-1.5 1.5S12.172 9 13 9zm-.132 1.5H7.132a.75.75 0 00-.6 1.2 4.5 4.5 0 007.136 0 .75.75 0 00-.6-1.2z"/>
+            <button className="input-btn" title="Emoji" aria-label="Add emoji">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2"/>
+                    <circle cx="8" cy="10" r="1.5" fill="currentColor"/>
+                    <circle cx="16" cy="10" r="1.5" fill="currentColor"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>
                 </svg>
             </button>
 
-            <button className="input-btn" title="Attach file (UI only)">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M16.5 6v11.5c0 1.933-1.567 3.5-3.5 3.5S9.5 19.433 9.5 17.5v-12C9.5 4.121 10.621 3 12 3s2.5 1.121 2.5 2.5v10.044a1 1 0 01-2 0V6.5a.5.5 0 00-1 0v9.044a2 2 0 104 0V5.5C15.5 3.567 13.933 2 12 2S8.5 3.567 8.5 5.5v12c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5V6a.5.5 0 00-1 0z"/>
+            <button className="input-btn" title="Attach file" aria-label="Attach file">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
                 </svg>
             </button>
 
@@ -46,10 +48,12 @@ export default function MessageInput({ onSend }: MessageInputProps) {
                 onKeyDown={handleKeyDown}
             />
 
-            <button className="input-btn" title="Voice message (UI only)">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10 0C8.343 0 7 1.343 7 3v7c0 1.657 1.343 3 3 3s3-1.343 3-3V3c0-1.657-1.343-3-3-3zm1 10c0 .551-.449 1-1 1s-1-.449-1-1V3c0-.551.449-1 1-1s1 .449 1 1v7z"/>
-                    <path d="M15 8a1 1 0 00-1 1v1c0 2.206-1.794 4-4 4s-4-1.794-4-4V9a1 1 0 00-2 0v1c0 3.072 2.312 5.605 5.283 5.951V18H7a1 1 0 000 2h6a1 1 0 000-2h-2.283v-2.049C13.688 15.605 16 13.072 16 10V9a1 1 0 00-1-1z"/>
+            <button className="input-btn" title="Voice message" aria-label="Voice message">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
                 </svg>
             </button>
 
@@ -57,9 +61,11 @@ export default function MessageInput({ onSend }: MessageInputProps) {
                 className="send-btn"
                 onClick={handleSend}
                 disabled={!text.trim()}
+                title="Send message"
+                aria-label="Send message"
             >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M0 0l20 10L0 20V0zm2 3.5v5l10-2.5L2 3.5zm0 13v-5l10 2.5L2 16.5z"/>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                 </svg>
             </button>
         </div>

@@ -1,155 +1,91 @@
 import { useState, useEffect } from 'react';
-import type { Chat, Message, TabType } from './types';
+import type { Chat } from './types';
 import { api } from './services/api';
+import Sidebar from './components/Sidebar/Sidebar';
+import ChatWindow from './components/ChatWindow/ChatWindow';
 import './App.css';
-import Tabs from './components/Tabs';
-import SearchBar from './components/Sidebar/SearchBar';
-import ChatItem from './components/Sidebar/ChatItem';
-import ChatHeader from './components/ChatWindow/ChatHeader';
-import MessageList from './components/ChatWindow/MessageList';
-import MessageInput from './components/ChatWindow/MessageInput';
 
 function App() {
     const [chats, setChats] = useState<Chat[]>([]);
-    const [selectedChatId, setSelectedChatId] = useState<number | null>(null);
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [activeTab, setActiveTab] = useState<TabType>('All');
-    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
     const [loading, setLoading] = useState(true);
-
-    const CURRENT_USER_ID = 1;
+    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
     useEffect(() => {
         loadChats();
+        const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' || 'dark';
+        setTheme(savedTheme);
+        document.documentElement.setAttribute('data-theme', savedTheme);
     }, []);
-
-    useEffect(() => {
-        if (selectedChatId) {
-            loadMessages(selectedChatId);
-        }
-    }, [selectedChatId]);
 
     const loadChats = async () => {
         try {
             const data = await api.getChats();
             setChats(data);
-            setLoading(false);
+            if (data.length > 0) {
+                setSelectedChat(data[0]);
+            }
         } catch (error) {
             console.error('Failed to load chats:', error);
+        } finally {
             setLoading(false);
         }
     };
 
-    const loadMessages = async (chatId: number) => {
-        try {
-            const data = await api.getMessages(chatId);
-            setMessages(data);
-        } catch (error) {
-            console.error('Failed to load messages:', error);
-        }
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
     };
-
-    const handleSendMessage = async (text: string) => {
-        if (!selectedChatId || !text.trim()) return;
-
-        try {
-            const newMessage = await api.sendMessage({
-                chatId: selectedChatId,
-                text: text.trim(),
-            });
-
-            setMessages([...messages, newMessage]);
-
-            const updatedChats = chats.map(chat =>
-                chat.id === selectedChatId
-                    ? { ...chat, lastMessage: text.trim(), updatedAt: newMessage.timestamp }
-                    : chat
-            );
-            setChats(updatedChats);
-        } catch (error) {
-            console.error('Failed to send message:', error);
-        }
-    };
-
-    const filteredChats = chats.filter(chat => {
-        const matchesSearch = chat.name.toLowerCase().includes(searchQuery.toLowerCase());
-
-        if (activeTab === 'All') return matchesSearch;
-        if (activeTab === 'Groups') return matchesSearch && chat.type === 'Group';
-        if (activeTab === 'Friends') return matchesSearch && chat.type === 'Friend';
-        if (activeTab === 'Favorites') return matchesSearch && chat.isFavorite;
-
-        return matchesSearch;
-    });
-
-    const pinnedChats = filteredChats.filter(chat => chat.isPinned);
-    const regularChats = filteredChats.filter(chat => !chat.isPinned);
-
-    const selectedChat = chats.find(c => c.id === selectedChatId);
 
     if (loading) {
         return <div className="loading">Loading...</div>;
     }
 
     return (
-        <div className="app">
-            <aside className="sidebar">
-                <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
-                <SearchBar value={searchQuery} onChange={setSearchQuery} />
+        <>
+            <button
+                className="theme-toggle"
+                onClick={toggleTheme}
+                title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                aria-label="Toggle theme"
+            >
+                {theme === 'light' ? (
+                    <svg className="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                ) : (
+                    <svg className="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                )}
+            </button>
 
-                <div className="chat-list">
-                    {pinnedChats.length > 0 && (
-                        <div className="chat-section">
-                            <div className="section-header">Pinned Chats</div>
-                            {pinnedChats.map(chat => (
-                                <ChatItem
-                                    key={chat.id}
-                                    chat={chat}
-                                    isSelected={selectedChatId === chat.id}
-                                    onClick={() => setSelectedChatId(chat.id)}
-                                />
-                            ))}
-                        </div>
-                    )}
+            <div className="app">
+                <Sidebar
+                    chats={chats}
+                    selectedChatId={selectedChat?.id || null}
+                    onChatSelect={setSelectedChat}
+                />
 
-                    {regularChats.length > 0 && (
-                        <div className="chat-section">
-                            {pinnedChats.length > 0 && (
-                                <div className="section-header">All Chats</div>
-                            )}
-                            {regularChats.map(chat => (
-                                <ChatItem
-                                    key={chat.id}
-                                    chat={chat}
-                                    isSelected={selectedChatId === chat.id}
-                                    onClick={() => setSelectedChatId(chat.id)}
-                                />
-                            ))}
-                        </div>
-                    )}
-
-                    {filteredChats.length === 0 && (
-                        <div className="empty-state">
-                            <p>No chats found</p>
-                        </div>
-                    )}
-                </div>
-            </aside>
-
-            <main className="chat-window">
                 {selectedChat ? (
-                    <>
-                        <ChatHeader chat={selectedChat} />
-                        <MessageList messages={messages} currentUserId={CURRENT_USER_ID} />
-                        <MessageInput onSend={handleSendMessage} />
-                    </>
+                    <ChatWindow chat={selectedChat} />
                 ) : (
                     <div className="chat-window-empty">
                         <p>Select a chat to start messaging</p>
                     </div>
                 )}
-            </main>
-        </div>
+            </div>
+        </>
     );
 }
 

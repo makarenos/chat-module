@@ -1,32 +1,33 @@
-export interface User {
+export type TabType = 'All' | 'Groups' | 'Friends' | 'Favorites';
+
+export type User = {
     id: number;
     username: string;
-    avatarUrl: string;
-}
+    avatarUrl?: string;
+};
 
-export interface Chat {
+export type Chat = {
     id: number;
     name: string;
     type: 'Group' | 'Friend';
     isPinned: boolean;
     isFavorite: boolean;
     updatedAt: string;
-    lastMessage: string;
+    lastMessage?: string;
     users: User[];
-}
+};
 
-export interface Message {
+export type Message = {
     id: number;
     chatId: number;
-    userId: number | null;
+    userId?: number;
     text: string;
     timestamp: string;
     isSystemMessage: boolean;
-}
+    user?: User;
+};
 
-export interface SendMessageDto {
+export type SendMessageDto = {
     chatId: number;
     text: string;
-}
-
-export type TabType = 'All' | 'Groups' | 'Friends' | 'Favorites';
+};

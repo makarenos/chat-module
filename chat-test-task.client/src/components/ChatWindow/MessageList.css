@@ -1,13 +1,14 @@
 .messages-list {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
+    background: var(--bg-secondary);
 }
 
 .messages-list::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 .messages-list::-webkit-scrollbar-track {
@@ -15,12 +16,12 @@
 }
 
 .messages-list::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 3px;
+    background: rgba(0, 217, 163, 0.25);
+    border-radius: 4px;
 }
 
 .messages-list::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+    background: var(--accent-malahit);
 }
 
 .messages-empty {
@@ -28,7 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #9ca3af;
+    color: var(--text-tertiary);
 }
 
 .messages-empty p {
