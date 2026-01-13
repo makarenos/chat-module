@@ -1,4 +1,16 @@
-﻿.app {
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.app {
     display: flex;
     height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -79,29 +91,17 @@
     overflow: hidden;
 }
 
-.messages {
+.chat-window-empty {
     flex: 1;
-    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 16px;
+}
+
+.chat-window-empty p {
     margin: 0;
-    padding: 20px;
-    background: #f9fafb;
-}
-
-.messages::-webkit-scrollbar {
-    width: 6px;
-}
-
-.messages::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.messages::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 3px;
-}
-
-.messages::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
 }
 
 .loading {
@@ -113,16 +113,4 @@
     font-weight: 500;
     color: #6b7280;
     background: #f9fafb;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
 }

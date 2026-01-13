@@ -5,6 +5,9 @@ import './App.css';
 import Tabs from './components/Tabs';
 import SearchBar from './components/Sidebar/SearchBar';
 import ChatItem from './components/Sidebar/ChatItem';
+import ChatHeader from './components/ChatWindow/ChatHeader';
+import MessageList from './components/ChatWindow/MessageList';
+import MessageInput from './components/ChatWindow/MessageInput';
 
 function App() {
     const [chats, setChats] = useState<Chat[]>([]);
@@ -13,6 +16,8 @@ function App() {
     const [activeTab, setActiveTab] = useState<TabType>('All');
     const [searchQuery, setSearchQuery] = useState('');
     const [loading, setLoading] = useState(true);
+
+    const CURRENT_USER_ID = 1;
 
     useEffect(() => {
         loadChats();
@@ -134,27 +139,14 @@ function App() {
             <main className="chat-window">
                 {selectedChat ? (
                     <>
-                        <h2>{selectedChat.name}</h2>
-                        <div className="messages">
-                            {messages.map(msg => (
-                                <div key={msg.id}>
-                                    <strong>{msg.userId ? 'User' : 'System'}:</strong> {msg.text}
-                                </div>
-                            ))}
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="Type a message..."
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    handleSendMessage(e.currentTarget.value);
-                                    e.currentTarget.value = '';
-                                }
-                            }}
-                        />
+                        <ChatHeader chat={selectedChat} />
+                        <MessageList messages={messages} currentUserId={CURRENT_USER_ID} />
+                        <MessageInput onSend={handleSendMessage} />
                     </>
                 ) : (
-                    <div>Select a chat to start messaging</div>
+                    <div className="chat-window-empty">
+                        <p>Select a chat to start messaging</p>
+                    </div>
                 )}
             </main>
         </div>
