@@ -54,12 +54,6 @@ export default function ChatList({
 
     const { pinned, unpinned } = filterChats();
 
-    const getUnreadCount = (chatId: number) => {
-        if (chatId === 1) return 94;
-        if (chatId === 2) return 1;
-        return 0;
-    };
-
     if (pinned.length === 0 && unpinned.length === 0) {
         return (
             <div className="chat-list-empty">
@@ -109,7 +103,6 @@ export default function ChatList({
                                     onToggleMute={onToggleMute}
                                     isMuted={mutedChats.has(chat.id)}
                                     isFavorite={chat.isFavorite}
-                                    unreadCount={getUnreadCount(chat.id)}
                                 />
                             ))}
                         </div>
@@ -141,7 +134,6 @@ export default function ChatList({
                                     onToggleMute={onToggleMute}
                                     isMuted={mutedChats.has(chat.id)}
                                     isFavorite={chat.isFavorite}
-                                    unreadCount={getUnreadCount(chat.id)}
                                 />
                             ))}
                         </div>

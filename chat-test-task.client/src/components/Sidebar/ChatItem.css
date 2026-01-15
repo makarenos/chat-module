@@ -1,13 +1,15 @@
 .chat-item {
     display: flex;
-    gap: 16px;
-    padding: 16px;
+    gap: 8px;
+    padding: 6px 6px 6px 8px;
     cursor: pointer;
     transition: all 0.25s ease;
     position: relative;
     border-radius: 12px;
-    margin: 4px 8px;
+    margin: 2px 2px;
     background: transparent;
+    align-items: center;
+    height: 114px;
 }
 
 .chat-item:hover {
@@ -15,12 +17,12 @@
 }
 
 .chat-item.selected {
-    background: rgba(0, 204, 255, 0.1);
-    border-left: 4px solid #00CCFF;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    margin-left: 4px;
-    padding-left: 20px;
+    background: rgba(0, 204, 255, 0.25);
+    box-shadow: 0 0 0 1.52px #00CCFF;
+    border-top-left-radius: 96px;
+    border-bottom-left-radius: 96px;
+    margin-left: 0px;
+    padding-left: 6px;
 }
 
 .chat-avatar {
@@ -29,31 +31,12 @@
 }
 
 .chat-avatar img {
-    width: 60px;
-    height: 60px;
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #00DA7B;
     transition: all 0.25s ease;
-}
-
-.avatar-badge {
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    background: #00DA7B;
-    color: var(--bg-primary);
-    font-size: 11px;
-    font-weight: 700;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 6px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid var(--bg-primary);
-    box-shadow: 0 2px 6px rgba(0, 218, 123, 0.4);
 }
 
 .chat-content {
@@ -61,7 +44,7 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
 }
 
 .chat-header {
@@ -69,6 +52,7 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 12px;
+    width: 100%;
 }
 
 .chat-info {
@@ -77,9 +61,9 @@
 }
 
 .chat-name {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: 22px;
+    font-weight: 700;
+    color: #e8ecf4;
     margin: 0 0 4px 0;
     white-space: nowrap;
     overflow: hidden;
@@ -88,7 +72,8 @@
 
 .chat-preview {
     font-size: 14px;
-    color: var(--text-secondary);
+    font-weight: 500;
+    color: #9ca6b8;
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -97,11 +82,25 @@
 }
 
 .chat-meta {
+    position: absolute;
+    top: 8px;
+    right: 8px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 8px;
-    flex-shrink: 0;
+    gap: 4px;
+}
+
+.chat-top-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.chat-bottom-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .chat-time {
@@ -111,6 +110,18 @@
     white-space: nowrap;
 }
 
+.chat-item.selected .chat-name {
+    color: #ffffff !important;
+}
+
+.chat-item.selected .chat-preview {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.chat-item.selected .chat-time {
+    color: #ffffff !important;
+}
+
 .chat-actions {
     display: flex;
     gap: 12px;
@@ -118,22 +129,35 @@
 }
 
 .chat-action-icon {
-    width: 20px;
-    height: 20px;
     cursor: pointer;
     transition: all 0.25s ease;
     color: var(--text-secondary);
     opacity: 0.8;
 }
 
+.favorite-icon {
+    width: 16px;
+    height: 16px;
+    color: #ffffff;
+    fill: #ffffff;
+}
+
+.sound-icon, .pin-icon {
+    width: 16px;
+    height: 16px;
+    color: #ffffff;
+    position: relative;
+}
+
+.options-icon {
+    width: 6px;
+    height: 16px;
+    color: #ffffff;
+}
+
 .chat-action-icon:hover {
     opacity: 1;
     transform: scale(1.1);
-}
-
-.favorite-icon {
-    color: #ffffff;
-    fill: #ffffff;
 }
 
 .favorite-icon:hover {
@@ -142,13 +166,32 @@
     transform: scale(1.2);
 }
 
-.sound-icon {
-    color: #ffffff;
-    position: relative;
-}
-
 .sound-icon:hover {
     color: #00DA7B;
+}
+
+.pin-icon:hover {
+    color: #00CCFF;
+    transform: rotate(-45deg) scale(1.1);
+}
+
+.options-icon:hover {
+    color: #00CCFF;
+}
+
+.chat-options-separate {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 32px;
+    height: 24px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.chat-options-separate:hover {
+    color: #00CCFF;
 }
 
 .sound-icon.muted {
@@ -169,13 +212,7 @@
 }
 
 .pin-icon {
-    color: #ffffff;
     transform: rotate(-45deg);
-}
-
-.pin-icon:hover {
-    color: #00CCFF;
-    transform: rotate(-45deg) scale(1.1);
 }
 
 .pin-icon.pinned {
@@ -207,11 +244,6 @@
     padding: 3px 7px;
 }
 
-/* Анимация для новых сообщений */
-.message-badge.new {
-    animation: badgePulse 1.5s ease-in-out infinite;
-}
-
 @keyframes badgePulse {
     0%, 100% {
         transform: scale(1);
@@ -223,7 +255,6 @@
     }
 }
 
-/* Hover эффекты */
 .chat-item:hover .chat-action-icon {
     opacity: 1;
 }
