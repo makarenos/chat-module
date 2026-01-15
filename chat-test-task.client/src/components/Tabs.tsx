@@ -7,17 +7,22 @@ interface TabsProps {
 }
 
 export default function Tabs({ activeTab, onTabChange }: TabsProps) {
-    const tabs: TabType[] = ['All', 'Groups', 'Friends', 'Favorites'];
+    const tabs: { value: TabType; label: string }[] = [
+        { value: 'All', label: 'All Chats' },
+        { value: 'Groups', label: 'Groups' },
+        { value: 'Friends', label: 'Friends' },
+        { value: 'Favorites', label: 'Favorites' }
+    ];
 
     return (
         <div className="tabs">
             {tabs.map((tab) => (
                 <button
-                    key={tab}
-                    className={`tab ${activeTab === tab ? 'active' : ''}`}
-                    onClick={() => onTabChange(tab)}
+                    key={tab.value}
+                    className={`tab ${activeTab === tab.value ? 'active' : ''}`}
+                    onClick={() => onTabChange(tab.value)}
                 >
-                    {tab}
+                    {tab.label}
                 </button>
             ))}
         </div>

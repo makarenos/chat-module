@@ -1,4 +1,7 @@
 import './SearchBar.css';
+import searchIcon from '../../assets/icons/search-icon.svg';
+import newChatIcon from '../../assets/icons/new-chat.svg';
+
 interface SearchBarProps {
     value: string;
     onChange: (value: string) => void;
@@ -29,14 +32,12 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
                 onChange={(e) => onChange(e.target.value)}
                 className="search-input"
             />
-            {value && (
-                <button
-                    className="clear-btn"
-                    onClick={() => onChange('')}
-                >
-                    ×
-                </button>
-            )}
+            <button className="search-action-btn" title="Search">
+                <img src={searchIcon} alt="Search" style={{ width: '20px', height: '20px' }} />
+            </button>
+            <button className="search-action-btn" title="New chat">
+                <img src={newChatIcon} alt="New chat" style={{ width: '20px', height: '20px' }} />
+            </button>
         </div>
     );
 }

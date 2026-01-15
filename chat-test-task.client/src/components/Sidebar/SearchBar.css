@@ -1,15 +1,17 @@
 .search-bar {
     position: relative;
-    padding: 0 16px 20px 16px;
+    padding: 20px 16px 20px 16px;
+    display: flex;
+    align-items: center;
 }
 
 .search-icon {
     position: absolute;
-    left: 30px;
-    top: 12px;
+    left: 36px;
     color: var(--text-tertiary);
     pointer-events: none;
     transition: color 0.25s;
+    z-index: 1;
 }
 
 .search-input:focus ~ .search-icon {
@@ -17,48 +19,64 @@
 }
 
 .search-input {
-    width: 100%;
-    padding: 12px 44px;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
+    flex: 1;
+    height: 32px;
+    padding: 0 100px 0 48px;
+    border: none;
+    border-radius: 18px;
     font-size: 14px;
     outline: none;
     transition: all 0.25s ease;
-    background: var(--bg-secondary);
+    background: rgba(0, 0, 0, 0.6);
     color: var(--text-primary);
 }
 
 .search-input:focus {
-    border-color: var(--accent-malahit);
-    background: var(--bg-tertiary);
-    box-shadow: 0 0 0 3px rgba(0, 217, 163, 0.08);
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 0 2px var(--accent-malahit);
 }
 
 .search-input::placeholder {
     color: var(--text-tertiary);
 }
 
-.clear-btn {
+.search-action-btn {
     position: absolute;
-    right: 28px;
-    top: 6px;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border: none;
-    background: var(--bg-tertiary);
-    border-radius: 50%;
-    font-size: 16px;
+    background: transparent;
     color: var(--text-secondary);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
     transition: all 0.25s ease;
     outline: none;
 }
 
-.clear-btn:hover {
+.search-action-btn:nth-of-type(1) {
+    right: 72px;
+}
+
+.search-action-btn:nth-of-type(2) {
+    right: 32px;
+}
+
+.search-action-btn:hover {
     background: var(--accent-malahit);
     color: var(--bg-primary);
-    transform: scale(1.08);
+    transform: scale(1.1);
+}
+
+.search-action-btn img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(70%);
+    transition: filter 0.25s ease;
+}
+
+.search-action-btn:hover img {
+    filter: brightness(0) saturate(100%) invert(100%);
 }

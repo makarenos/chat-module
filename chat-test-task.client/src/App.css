@@ -1,4 +1,6 @@
-﻿:root {
+﻿@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700&display=swap');
+
+:root {
     --bg-primary: #ffffff;
     --bg-secondary: #f7f8fa;
     --bg-tertiary: #ebedf0;
@@ -12,7 +14,7 @@
     --accent-hover: #00c692;
     --message-own: #effdde;
     --message-other: #ffffff;
-    --sidebar-width: 360px;
+    --sidebar-width: 456px;
     --tab-active-bg: #3b82f6;
     --tab-active-text: #ffffff;
     --shadow-light: 0 1px 2px rgba(16, 24, 40, 0.05);
@@ -55,7 +57,7 @@ body {
     display: flex;
     height: 100vh;
     width: 100vw;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    font-family: 'Exo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
     background: var(--bg-secondary);
