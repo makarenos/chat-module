@@ -3,16 +3,16 @@
     align-items: center;
     gap: 16px;
     padding: 24px 28px;
-    background: var(--bg-primary);
-    border-top: 1px solid var(--border-color);
+    background: #0f1419;
+    border-top: 1px solid #1e2329;
 }
 
 .input-btn {
-    width: 48px;
-    height: 48px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
+    width: 32px;
+    height: 32px;
+    border: 1px solid #1e2329;
+    background: #1e2329;
+    color: #e8ecf4;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -24,9 +24,9 @@
 }
 
 .input-btn:hover {
-    background: var(--accent-malahit);
-    color: var(--bg-primary);
-    border-color: var(--accent-malahit);
+    background: #00d9a3;
+    color: #0a0d12;
+    border-color: #00d9a3;
     transform: scale(1.08);
     box-shadow: 0 4px 12px rgba(0, 217, 163, 0.3);
 }
@@ -38,7 +38,7 @@
 .input-btn.recording {
     background: #ef4444;
     border-color: #ef4444;
-    color: var(--bg-primary);
+    color: #0a0d12;
     animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -52,8 +52,8 @@
 }
 
 .input-btn svg {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     stroke: currentColor;
 }
 
@@ -61,8 +61,8 @@
     position: absolute;
     bottom: calc(100% + 10px);
     left: 0;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
+    background: #0f1419;
+    border: 1px solid #1e2329;
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     padding: 16px;
@@ -89,7 +89,7 @@
 }
 
 .emoji-picker::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-malahit);
+    background: #00d9a3;
 }
 
 .emoji-item {
@@ -107,7 +107,7 @@
 }
 
 .emoji-item:hover {
-    background: var(--bg-tertiary);
+    background: #1e2329;
     transform: scale(1.2);
 }
 
@@ -118,33 +118,33 @@
 .message-input {
     flex: 1;
     padding: 16px 24px;
-    border: 1px solid var(--border-color);
+    border: 1px solid #1e2329;
     border-radius: 28px;
     font-size: 15px;
     font-family: inherit;
     outline: none;
     transition: all 0.25s ease;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
+    background: #15181f;
+    color: #e8ecf4;
 }
 
 .message-input:focus {
-    border-color: var(--accent-malahit);
-    background: var(--bg-tertiary);
+    border-color: #00d9a3;
+    background: #1e2329;
     box-shadow: 0 0 0 3px rgba(0, 217, 163, 0.12);
 }
 
 .message-input::placeholder {
-    color: var(--text-tertiary);
+    color: #6b7485;
     opacity: 0.8;
 }
 
 .send-btn {
-    width: 48px;
-    height: 48px;
-    border: 2px solid var(--accent-malahit);
-    background: var(--accent-malahit);
-    color: var(--bg-primary);
+    width: 32px;
+    height: 32px;
+    border: 2px solid #00d9a3;
+    background: #00d9a3;
+    color: #0a0d12;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -157,8 +157,8 @@
 }
 
 .send-btn:hover:not(:disabled) {
-    background: var(--accent-hover);
-    border-color: var(--accent-hover);
+    background: #00b88a;
+    border-color: #00b88a;
     transform: scale(1.08);
     box-shadow: 0 6px 16px rgba(0, 217, 163, 0.45);
 }
@@ -168,16 +168,16 @@
 }
 
 .send-btn:disabled {
-    background: var(--bg-tertiary);
-    border-color: var(--border-color);
-    color: var(--text-tertiary);
+    background: #1e2329;
+    border-color: #1e2329;
+    color: #6b7485;
     cursor: not-allowed;
     box-shadow: none;
     opacity: 0.6;
 }
 
 .send-btn svg {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     stroke: currentColor;
 }

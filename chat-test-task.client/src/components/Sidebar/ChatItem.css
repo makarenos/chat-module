@@ -1,6 +1,6 @@
 .chat-item {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     padding: 6px 6px 6px 8px;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -47,7 +47,7 @@
     gap: 4px;
 }
 
-.chat-header {
+.chat-item-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -131,7 +131,7 @@
 .chat-action-icon {
     cursor: pointer;
     transition: all 0.25s ease;
-    color: var(--text-secondary);
+    color: #9ca6b8;
     opacity: 0.8;
 }
 
@@ -139,7 +139,12 @@
     width: 16px;
     height: 16px;
     color: #ffffff;
-    fill: #ffffff;
+    stroke: #ffffff;
+    fill: none;
+}
+
+.favorite-icon.active {
+    stroke: #ff4757;
 }
 
 .sound-icon, .pin-icon {
@@ -161,8 +166,7 @@
 }
 
 .favorite-icon:hover {
-    color: #ff4757;
-    fill: #ff4757;
+    stroke: #ff4757;
     transform: scale(1.2);
 }
 
@@ -236,7 +240,7 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
-    border: 2px solid var(--bg-primary);
+    border: 2px solid #0f1419;
 }
 
 .message-badge.large-count {

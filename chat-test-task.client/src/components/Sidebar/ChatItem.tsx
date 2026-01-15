@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Chat } from '../../types';
 import './ChatItem.css';
 
@@ -53,10 +52,6 @@ export default function ChatItem({
         return chat.users[0]?.avatarUrl;
     };
 
-    const getRealUnreadCount = () => {
-        return chat.messages?.filter(msg => !msg.isRead && msg.userId !== 1).length || 0;
-    };
-
     const handlePinClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (onTogglePin) {
@@ -78,16 +73,14 @@ export default function ChatItem({
         }
     };
 
-    const realUnreadCount = getRealUnreadCount();
-
     return (
         <div
             className={`chat-item ${isSelected ? 'selected' : ''}`}
             onClick={onClick}
         >
-            {realUnreadCount > 0 && (
-                <div className={`message-badge ${realUnreadCount > 99 ? 'large-count' : ''}`}>
-                    {realUnreadCount > 99 ? '99+' : realUnreadCount}
+            {unreadCount > 0 && (
+                <div className={`message-badge ${unreadCount > 99 ? 'large-count' : ''}`}>
+                    {unreadCount > 99 ? '99+' : unreadCount}
                 </div>
             )}
 
@@ -96,7 +89,7 @@ export default function ChatItem({
             </div>
 
             <div className="chat-content">
-                <div className="chat-header">
+                <div className="chat-item-header">
                     <div className="chat-info">
                         <h3 className="chat-name">{chat.name}</h3>
                         <p className="chat-preview">{chat.lastMessage}</p>
@@ -109,7 +102,7 @@ export default function ChatItem({
                                 width="16"
                                 height="16"
                                 viewBox="0 0 24 24"
-                                fill={isFavorite ? '#ff4757' : 'none'}
+                                fill="none"
                                 stroke="currentColor"
                                 strokeWidth="2"
                                 onClick={handleFavoriteClick}

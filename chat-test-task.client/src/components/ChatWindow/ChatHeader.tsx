@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import type { Chat } from '../../types';
 import './ChatHeader.css';
+import UsersGroupIcon from '../../assets/icons/users-group-icon.svg';
+import VideoCallIcon from '../../assets/icons/video-call-icon.svg';
+import ChatMenuIcon from '../../assets/icons/chat-menu-icon.svg';
 
 interface ChatHeaderProps {
     chat: Chat;
@@ -32,47 +35,60 @@ export default function ChatHeader({ chat, onToggleMute }: ChatHeaderProps) {
         }
     };
 
+    const getAvatarUrl = () => {
+        if (chat.type === 'Friend' && chat.users.length > 1) {
+            const otherUser = chat.users.find(u => u.username !== 'CurrentUser');
+            return otherUser?.avatarUrl || chat.users[0]?.avatarUrl;
+        }
+        return chat.users[0]?.avatarUrl;
+    };
+
     return (
         <>
             <div className="chat-header">
-                <div className="chat-header-info">
-                    <h2 className="chat-header-title">{chat.name}</h2>
-                    <span className="chat-header-subtitle">
-                        {chat.type === 'Group' ? `${userCount} Users` : 'Direct Message'}
-                    </span>
+                <div className="chat-header-left">
+                    <div className="chat-header-avatar">
+                        <img src={getAvatarUrl()} alt={chat.name} />
+                    </div>
+                    <div className="chat-header-info">
+                        <h2 className="chat-header-title">{chat.name}</h2>
+                        <span className="chat-header-subtitle">
+                            {chat.type === 'Group' ? `Group Chat with ${userCount} Users` : 'Direct Message'}
+                        </span>
+                    </div>
                 </div>
                 <div className="chat-header-actions">
                     <button
                         className="header-btn"
-                        title="Mute notifications"
-                        onClick={handleMuteClick}
+                        title="View members"
                     >
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"/>
-                        </svg>
+                        <img src={UsersGroupIcon} alt="Members" />
                     </button>
                     <button
-                        className="header-btn"
-                        title="Video call"
+                        className="header-btn header-btn-call"
+                        title="Voice call"
                         onClick={() => setShowVideoModal(true)}
                     >
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polygon points="23 7 16 12 23 17 23 7"/>
-                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                        <img src={VideoCallIcon} alt="Call" />
+                    </button>
+                    <button
+                        className="header-btn header-btn-settings"
+                        title="More options"
+                        onClick={() => setShowMenu(!showMenu)}
+                    >
+                        <img src={ChatMenuIcon} alt="Settings" />
+                    </button>
+                    <button
+                        className="header-btn header-btn-options"
+                        title="Options"
+                    >
+                        <svg width="6" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="12" r="2"/>
+                            <circle cx="12" cy="5" r="2"/>
+                            <circle cx="12" cy="19" r="2"/>
                         </svg>
                     </button>
                     <div ref={menuRef} style={{ position: 'relative' }}>
-                        <button
-                            className="header-btn"
-                            title="More options"
-                            onClick={() => setShowMenu(!showMenu)}
-                        >
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="12" cy="12" r="1"/>
-                                <circle cx="19" cy="12" r="1"/>
-                                <circle cx="5" cy="12" r="1"/>
-                            </svg>
-                        </button>
                         {showMenu && (
                             <div className="header-menu">
                                 <button className="menu-item" onClick={() => setShowMenu(false)}>
@@ -119,7 +135,7 @@ export default function ChatHeader({ chat, onToggleMute }: ChatHeaderProps) {
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                         <h3 className="modal-title">Feature In Development</h3>
                         <p className="modal-message">
-                            Video calling feature is currently under development and will be available soon!
+                            Voice calling feature is currently under development and will be available soon!
                         </p>
                         <button
                             className="modal-button"
