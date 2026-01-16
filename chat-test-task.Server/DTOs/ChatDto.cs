@@ -10,5 +10,6 @@ namespace chat_test_task.Server.DTOs
         public DateTime UpdatedAt { get; set; }
         public string? LastMessage { get; set; }
         public List<UserDto> Users { get; set; } = new();
+        public int UnreadCount { get; set; }
     }
 }

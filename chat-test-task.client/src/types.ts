@@ -15,6 +15,7 @@ export type Chat = {
     updatedAt: string;
     lastMessage?: string;
     users: User[];
+    unreadCount: number;
 };
 
 export type Message = {

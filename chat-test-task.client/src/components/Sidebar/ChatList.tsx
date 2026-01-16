@@ -29,7 +29,9 @@ export default function ChatList({
                                  }: ChatListProps) {
 
     const [pinnedCollapsed, setPinnedCollapsed] = useState(false);
-    const [unpinnedCollapsed, setUnpinnedCollapsed] = useState(false);
+    const [groupChatsCollapsed, setGroupChatsCollapsed] = useState(false);
+    const [friendChatsCollapsed, setFriendChatsCollapsed] = useState(false);
+    const [allChatsCollapsed, setAllChatsCollapsed] = useState(false);
 
     const filterChats = () => {
         let filtered = chats;
@@ -51,10 +53,13 @@ export default function ChatList({
         const pinned = filtered.filter(chat => chat.isPinned);
         const unpinned = filtered.filter(chat => !chat.isPinned);
 
-        return { pinned, unpinned };
+        const groupChats = unpinned.filter(chat => chat.type === 'Group');
+        const friendChats = unpinned.filter(chat => chat.type === 'Friend');
+
+        return { pinned, groupChats, friendChats, unpinned };
     };
 
-    const { pinned, unpinned } = filterChats();
+    const { pinned, groupChats, friendChats, unpinned } = filterChats();
 
     if (pinned.length === 0 && unpinned.length === 0) {
         return (
@@ -62,7 +67,7 @@ export default function ChatList({
                 No chats found
             </div>
         );
-    };
+    }
 
     const SectionHeader = ({
                                title,
@@ -83,6 +88,23 @@ export default function ChatList({
         </div>
     );
 
+    const renderChatItems = (chatList: Chat[]) => (
+        chatList.map((chat) => (
+            <ChatItem
+                key={chat.id}
+                chat={chat}
+                isSelected={chat.id === selectedChatId}
+                onClick={() => onChatSelect(chat)}
+                onTogglePin={onTogglePin}
+                onToggleFavorite={onToggleFavorite}
+                onToggleMute={onToggleMute}
+                isMuted={mutedChats.has(chat.id)}
+                isFavorite={chat.isFavorite}
+                unreadCount={chat.unreadCount}
+            />
+        ))
+    );
+
     return (
         <div className="chat-list">
             {pinned.length > 0 && (
@@ -94,50 +116,86 @@ export default function ChatList({
                     />
                     {!pinnedCollapsed && (
                         <div className="section-content">
-                            {pinned.map((chat) => (
-                                <ChatItem
-                                    key={chat.id}
-                                    chat={chat}
-                                    isSelected={chat.id === selectedChatId}
-                                    onClick={() => onChatSelect(chat)}
-                                    onTogglePin={onTogglePin}
-                                    onToggleFavorite={onToggleFavorite}
-                                    onToggleMute={onToggleMute}
-                                    isMuted={mutedChats.has(chat.id)}
-                                    isFavorite={chat.isFavorite}
-                                />
-                            ))}
+                            {renderChatItems(pinned)}
                         </div>
                     )}
                 </div>
             )}
 
-            {unpinned.length > 0 && (
+            {activeTab === 'All' && (
+                <>
+                    {groupChats.length > 0 && (
+                        <div className="chat-section">
+                            <SectionHeader
+                                title="Group Chats"
+                                collapsed={groupChatsCollapsed}
+                                onToggle={() => setGroupChatsCollapsed(!groupChatsCollapsed)}
+                            />
+                            {!groupChatsCollapsed && (
+                                <div className="section-content">
+                                    {renderChatItems(groupChats)}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {friendChats.length > 0 && (
+                        <div className="chat-section">
+                            <SectionHeader
+                                title="Friend Chats"
+                                collapsed={friendChatsCollapsed}
+                                onToggle={() => setFriendChatsCollapsed(!friendChatsCollapsed)}
+                            />
+                            {!friendChatsCollapsed && (
+                                <div className="section-content">
+                                    {renderChatItems(friendChats)}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </>
+            )}
+
+            {activeTab === 'Groups' && groupChats.length > 0 && (
                 <div className="chat-section">
                     <SectionHeader
-                        title={
-                            activeTab === 'Groups' ? 'Group Chats' :
-                                activeTab === 'Friends' ? 'Friend Chats' :
-                                    'All Chats'
-                        }
-                        collapsed={unpinnedCollapsed}
-                        onToggle={() => setUnpinnedCollapsed(!unpinnedCollapsed)}
+                        title="Group Chats"
+                        collapsed={groupChatsCollapsed}
+                        onToggle={() => setGroupChatsCollapsed(!groupChatsCollapsed)}
                     />
-                    {!unpinnedCollapsed && (
+                    {!groupChatsCollapsed && (
                         <div className="section-content">
-                            {unpinned.map((chat) => (
-                                <ChatItem
-                                    key={chat.id}
-                                    chat={chat}
-                                    isSelected={chat.id === selectedChatId}
-                                    onClick={() => onChatSelect(chat)}
-                                    onTogglePin={onTogglePin}
-                                    onToggleFavorite={onToggleFavorite}
-                                    onToggleMute={onToggleMute}
-                                    isMuted={mutedChats.has(chat.id)}
-                                    isFavorite={chat.isFavorite}
-                                />
-                            ))}
+                            {renderChatItems(groupChats)}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {activeTab === 'Friends' && friendChats.length > 0 && (
+                <div className="chat-section">
+                    <SectionHeader
+                        title="Friend Chats"
+                        collapsed={friendChatsCollapsed}
+                        onToggle={() => setFriendChatsCollapsed(!friendChatsCollapsed)}
+                    />
+                    {!friendChatsCollapsed && (
+                        <div className="section-content">
+                            {renderChatItems(friendChats)}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {activeTab === 'Favorites' && unpinned.length > 0 && (
+                <div className="chat-section">
+                    <SectionHeader
+                        title="All Chats"
+                        collapsed={allChatsCollapsed}
+                        onToggle={() => setAllChatsCollapsed(!allChatsCollapsed)}
+                    />
+                    {!allChatsCollapsed && (
+                        <div className="section-content">
+                            {renderChatItems(unpinned)}
                         </div>
                     )}
                 </div>

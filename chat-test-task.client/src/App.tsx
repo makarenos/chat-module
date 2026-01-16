@@ -10,22 +10,47 @@ function App() {
     const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
     const [loading, setLoading] = useState(true);
     const [mutedChats, setMutedChats] = useState<Set<number>>(new Set());
+    const [pinnedChats, setPinnedChats] = useState<Set<number>>(new Set());
+    const [favoriteChats, setFavoriteChats] = useState<Set<number>>(new Set());
 
     useEffect(() => {
-        loadChats();
-
         const savedMuted = localStorage.getItem('mutedChats');
         if (savedMuted) {
             setMutedChats(new Set(JSON.parse(savedMuted)));
         }
+
+        const savedPinned = localStorage.getItem('pinnedChats');
+        if (savedPinned) {
+            setPinnedChats(new Set(JSON.parse(savedPinned)));
+        }
+
+        const savedFavorite = localStorage.getItem('favoriteChats');
+        if (savedFavorite) {
+            setFavoriteChats(new Set(JSON.parse(savedFavorite)));
+        }
+
+        loadChats();
     }, []);
 
     const loadChats = async () => {
         try {
             const data = await api.getChats();
-            setChats(data);
-            if (data.length > 0 && !selectedChat) {
-                setSelectedChat(data[0]);
+
+            const savedPinned = localStorage.getItem('pinnedChats');
+            const savedFavorite = localStorage.getItem('favoriteChats');
+            const pinnedSet = savedPinned ? new Set(JSON.parse(savedPinned)) : new Set();
+            const favoriteSet = savedFavorite ? new Set(JSON.parse(savedFavorite)) : new Set();
+
+            const mergedChats = data.map(chat => ({
+                ...chat,
+                isPinned: pinnedSet.has(chat.id),
+                isFavorite: favoriteSet.has(chat.id)
+            }));
+
+            setChats(mergedChats);
+
+            if (mergedChats.length > 0 && !selectedChat) {
+                setSelectedChat(mergedChats[0]);
             }
         } catch (error) {
             console.error('Failed to load chats:', error);
@@ -34,11 +59,51 @@ function App() {
         }
     };
 
+    const handleChatSelect = (chat: Chat) => {
+        setSelectedChat(chat);
+
+        setChats(prevChats =>
+            prevChats.map(c =>
+                c.id === chat.id
+                    ? { ...c, unreadCount: 0 }
+                    : c
+            )
+        );
+    };
+
+    const handleCreateChat = (name: string, type: 'Group' | 'Friend') => {
+        const newChat: Chat = {
+            id: Date.now(),
+            name,
+            type,
+            isPinned: false,
+            isFavorite: false,
+            updatedAt: new Date().toISOString(),
+            lastMessage: '',
+            users: [],
+            unreadCount: 0
+        };
+
+        setChats(prevChats => [newChat, ...prevChats]);
+        setSelectedChat(newChat);
+    };
+
     const handleMessageSent = async () => {
         await loadChats();
     };
 
     const handleTogglePin = (chatId: number) => {
+        setPinnedChats(prev => {
+            const newPinned = new Set(prev);
+            if (newPinned.has(chatId)) {
+                newPinned.delete(chatId);
+            } else {
+                newPinned.add(chatId);
+            }
+            localStorage.setItem('pinnedChats', JSON.stringify([...newPinned]));
+            return newPinned;
+        });
+
         setChats(prevChats =>
             prevChats.map(chat =>
                 chat.id === chatId
@@ -49,6 +114,17 @@ function App() {
     };
 
     const handleToggleFavorite = (chatId: number) => {
+        setFavoriteChats(prev => {
+            const newFavorite = new Set(prev);
+            if (newFavorite.has(chatId)) {
+                newFavorite.delete(chatId);
+            } else {
+                newFavorite.add(chatId);
+            }
+            localStorage.setItem('favoriteChats', JSON.stringify([...newFavorite]));
+            return newFavorite;
+        });
+
         setChats(prevChats =>
             prevChats.map(chat =>
                 chat.id === chatId
@@ -80,11 +156,12 @@ function App() {
             <Sidebar
                 chats={chats}
                 selectedChatId={selectedChat?.id || null}
-                onChatSelect={setSelectedChat}
+                onChatSelect={handleChatSelect}
                 onTogglePin={handleTogglePin}
                 onToggleFavorite={handleToggleFavorite}
                 mutedChats={mutedChats}
                 onToggleMute={handleToggleMute}
+                onCreateChat={handleCreateChat}
             />
 
             {selectedChat ? (

@@ -52,13 +52,11 @@ export default function ChatHeader({ chat, onToggleMute }: ChatHeaderProps) {
                     </div>
                     <div className="chat-header-info">
                         <h2 className="chat-header-title">{chat.name}</h2>
-                        <span className="chat-header-subtitle">
-                            {chat.type === 'Group' ? (
-                                <>Group Chat with <span className="user-count">{userCount} Users</span></>
-                            ) : (
-                                'Direct Message'
-                            )}
-                        </span>
+                        {chat.type === 'Group' && (
+                            <span className="chat-header-subtitle">
+                                Group Chat with <span className="user-count">{userCount} Users</span>
+                            </span>
+                        )}
                     </div>
                 </div>
                 <div className="chat-header-actions">

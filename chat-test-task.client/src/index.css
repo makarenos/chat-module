@@ -13,6 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+*:focus,
+*:focus-visible {
+  outline: none !important;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -48,10 +53,6 @@ button {
 }
 button:hover {
   border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {

@@ -24,6 +24,9 @@ export default function ChatItem({
                                      isFavorite = false,
                                      unreadCount = 0
                                  }: ChatItemProps) {
+
+    if (!chat) return null;
+
     const formatTime = (dateString: string) => {
         const date = new Date(dateString);
         const now = new Date();
@@ -45,11 +48,13 @@ export default function ChatItem({
     };
 
     const getAvatarUrl = () => {
+        if (!chat.users || chat.users.length === 0) return '';
+
         if (chat.type === 'Friend' && chat.users.length > 1) {
             const otherUser = chat.users.find(u => u.username !== 'CurrentUser');
-            return otherUser?.avatarUrl || chat.users[0]?.avatarUrl;
+            return otherUser?.avatarUrl || chat.users[0]?.avatarUrl || '';
         }
-        return chat.users[0]?.avatarUrl;
+        return chat.users[0]?.avatarUrl || '';
     };
 
     const handlePinClick = (e: React.MouseEvent) => {
@@ -78,21 +83,20 @@ export default function ChatItem({
             className={`chat-item ${isSelected ? 'selected' : ''}`}
             onClick={onClick}
         >
-            {unreadCount > 0 && (
-                <div className={`message-badge ${unreadCount > 99 ? 'large-count' : ''}`}>
-                    {unreadCount > 99 ? '99+' : unreadCount}
-                </div>
-            )}
-
             <div className="chat-avatar">
-                <img src={getAvatarUrl()} alt={chat.name} />
+                {unreadCount > 0 && !isSelected && (
+                    <div className="message-badge">
+                        {unreadCount > 99 ? '99+' : unreadCount}
+                    </div>
+                )}
+                <img src={getAvatarUrl()} alt={chat.name || 'Chat'} />
             </div>
 
             <div className="chat-content">
                 <div className="chat-item-header">
                     <div className="chat-info">
                         <h3 className="chat-name">{chat.name}</h3>
-                        <p className="chat-preview">{chat.lastMessage}</p>
+                        <p className="chat-preview">{chat.lastMessage || ''}</p>
                     </div>
                     <div className="chat-meta">
                         <div className="chat-top-row">

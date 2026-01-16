@@ -229,7 +229,7 @@ namespace chat_test_task.Server.Data
                 new Message
                 {
                     ChatId = chats[2].Id,
-                    UserId = users[1].Id,
+                    UserId = users[0].Id,
                     Text = "Good! Working on a test task",
                     Timestamp = DateTime.UtcNow.AddMinutes(-12),
                     IsSystemMessage = false
@@ -245,7 +245,7 @@ namespace chat_test_task.Server.Data
                 new Message
                 {
                     ChatId = chats[2].Id,
-                    UserId = users[1].Id,
+                    UserId = users[0].Id,
                     Text = "Sure thing! So far so good actually",
                     Timestamp = DateTime.UtcNow.AddMinutes(-8),
                     IsSystemMessage = false

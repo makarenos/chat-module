@@ -10,6 +10,7 @@ namespace chat_test_task.Server.Controllers
     public class ChatsController : ControllerBase
     {
         private readonly ChatDbContext _context;
+        private const int CurrentUserId = 1;
 
         public ChatsController(ChatDbContext context)
         {
@@ -39,7 +40,8 @@ namespace chat_test_task.Server.Controllers
                     Id = u.Id,
                     Username = u.Username,
                     AvatarUrl = u.AvatarUrl
-                }).ToList()
+                }).ToList(),
+                UnreadCount = c.Messages.Count(m => m.UserId != CurrentUserId && !m.IsSystemMessage)
             }).ToList();
 
             return Ok(chatDtos);
@@ -72,7 +74,8 @@ namespace chat_test_task.Server.Controllers
                     Id = u.Id,
                     Username = u.Username,
                     AvatarUrl = u.AvatarUrl
-                }).ToList()
+                }).ToList(),
+                UnreadCount = 0
             };
 
             return Ok(chatDto);

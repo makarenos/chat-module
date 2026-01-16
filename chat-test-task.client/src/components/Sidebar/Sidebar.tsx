@@ -13,6 +13,7 @@ interface SidebarProps {
     onToggleFavorite: (chatId: number) => void;
     mutedChats: Set<number>;
     onToggleMute: (chatId: number) => void;
+    onCreateChat?: (name: string, type: 'Group' | 'Friend') => void;
 }
 
 export default function Sidebar({
@@ -22,7 +23,8 @@ export default function Sidebar({
                                     onTogglePin,
                                     onToggleFavorite,
                                     mutedChats,
-                                    onToggleMute
+                                    onToggleMute,
+                                    onCreateChat
                                 }: SidebarProps) {
     const [activeTab, setActiveTab] = useState<TabType>('All');
     const [searchQuery, setSearchQuery] = useState('');
@@ -30,7 +32,11 @@ export default function Sidebar({
     return (
         <div className="sidebar">
             <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
-            <SearchBar value={searchQuery} onChange={setSearchQuery} />
+            <SearchBar
+                value={searchQuery}
+                onChange={setSearchQuery}
+                onCreateChat={onCreateChat}
+            />
             <ChatList
                 chats={chats}
                 activeTab={activeTab}
