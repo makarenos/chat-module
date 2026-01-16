@@ -11,6 +11,7 @@ interface ChatListProps {
     selectedChatId: number | null;
     onChatSelect: (chat: Chat) => void;
     onTogglePin?: (chatId: number) => void;
+    onToggleFavorite?: (chatId: number) => void;
     mutedChats: Set<number>;
     onToggleMute: (chatId: number) => void;
 }
@@ -22,6 +23,7 @@ export default function ChatList({
                                      selectedChatId,
                                      onChatSelect,
                                      onTogglePin,
+                                     onToggleFavorite,
                                      mutedChats,
                                      onToggleMute
                                  }: ChatListProps) {
@@ -60,7 +62,7 @@ export default function ChatList({
                 No chats found
             </div>
         );
-    }
+    };
 
     const SectionHeader = ({
                                title,
@@ -99,7 +101,7 @@ export default function ChatList({
                                     isSelected={chat.id === selectedChatId}
                                     onClick={() => onChatSelect(chat)}
                                     onTogglePin={onTogglePin}
-                                    onToggleFavorite={() => {}}
+                                    onToggleFavorite={onToggleFavorite}
                                     onToggleMute={onToggleMute}
                                     isMuted={mutedChats.has(chat.id)}
                                     isFavorite={chat.isFavorite}
@@ -130,7 +132,7 @@ export default function ChatList({
                                     isSelected={chat.id === selectedChatId}
                                     onClick={() => onChatSelect(chat)}
                                     onTogglePin={onTogglePin}
-                                    onToggleFavorite={() => {}}
+                                    onToggleFavorite={onToggleFavorite}
                                     onToggleMute={onToggleMute}
                                     isMuted={mutedChats.has(chat.id)}
                                     isFavorite={chat.isFavorite}

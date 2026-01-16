@@ -10,6 +10,7 @@ interface SidebarProps {
     selectedChatId: number | null;
     onChatSelect: (chat: Chat) => void;
     onTogglePin: (chatId: number) => void;
+    onToggleFavorite: (chatId: number) => void;
     theme: 'light' | 'dark';
     onToggleTheme: () => void;
     mutedChats: Set<number>;
@@ -21,6 +22,7 @@ export default function Sidebar({
                                     selectedChatId,
                                     onChatSelect,
                                     onTogglePin,
+                                    onToggleFavorite,
                                     theme,
                                     onToggleTheme,
                                     mutedChats,
@@ -40,6 +42,7 @@ export default function Sidebar({
                 selectedChatId={selectedChatId}
                 onChatSelect={onChatSelect}
                 onTogglePin={onTogglePin}
+                onToggleFavorite={onToggleFavorite}
                 mutedChats={mutedChats}
                 onToggleMute={onToggleMute}
             />

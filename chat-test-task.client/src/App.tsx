@@ -59,6 +59,16 @@ function App() {
         );
     };
 
+    const handleToggleFavorite = (chatId: number) => {
+        setChats(prevChats =>
+            prevChats.map(chat =>
+                chat.id === chatId
+                    ? { ...chat, isFavorite: !chat.isFavorite }
+                    : chat
+            )
+        );
+    };
+
     const handleToggleMute = (chatId: number) => {
         setMutedChats(prev => {
             const newMuted = new Set(prev);
@@ -83,6 +93,7 @@ function App() {
                 selectedChatId={selectedChat?.id || null}
                 onChatSelect={setSelectedChat}
                 onTogglePin={handleTogglePin}
+                onToggleFavorite={handleToggleFavorite}
                 theme={theme}
                 onToggleTheme={toggleTheme}
                 mutedChats={mutedChats}

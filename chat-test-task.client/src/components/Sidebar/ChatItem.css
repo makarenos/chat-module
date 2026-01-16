@@ -144,7 +144,7 @@
 }
 
 .favorite-icon.active {
-    stroke: #ff4757;
+    fill: #ff4757;
 }
 
 .sound-icon, .pin-icon {
