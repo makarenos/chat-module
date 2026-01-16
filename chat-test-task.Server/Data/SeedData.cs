@@ -34,7 +34,7 @@ namespace chat_test_task.Server.Data
                     IsPinned = true,
                     IsFavorite = false,
                     CreatedAt = DateTime.UtcNow.AddDays(-7),
-                    UpdatedAt = DateTime.UtcNow.AddMinutes(-10)
+                    UpdatedAt = DateTime.UtcNow.AddMinutes(-1)
                 },
                 new Chat
                 {
@@ -43,7 +43,7 @@ namespace chat_test_task.Server.Data
                     IsPinned = false,
                     IsFavorite = true,
                     CreatedAt = DateTime.UtcNow.AddDays(-3),
-                    UpdatedAt = DateTime.UtcNow.AddMinutes(-5)
+                    UpdatedAt = DateTime.UtcNow.AddMinutes(-2)
                 },
                 new Chat
                 {
@@ -52,7 +52,7 @@ namespace chat_test_task.Server.Data
                     IsPinned = false,
                     IsFavorite = false,
                     CreatedAt = DateTime.UtcNow.AddDays(-1),
-                    UpdatedAt = DateTime.UtcNow.AddMinutes(-2)
+                    UpdatedAt = DateTime.UtcNow.AddMinutes(-5)
                 },
                 new Chat
                 {
@@ -61,7 +61,7 @@ namespace chat_test_task.Server.Data
                     IsPinned = false,
                     IsFavorite = true,
                     CreatedAt = DateTime.UtcNow.AddDays(-5),
-                    UpdatedAt = DateTime.UtcNow.AddMinutes(-30)
+                    UpdatedAt = DateTime.UtcNow.AddMinutes(-8)
                 }
             };
             context.Chats.AddRange(chats);
@@ -93,8 +93,8 @@ namespace chat_test_task.Server.Data
                 new Message
                 {
                     ChatId = chats[0].Id,
-                    UserId = null,
-                    Text = "Олег добавил вас в чат",
+                    UserId = users[2].Id,
+                    Text = "добавил вас в чат",
                     Timestamp = DateTime.UtcNow.AddDays(-7),
                     IsSystemMessage = true
                 },
@@ -124,42 +124,138 @@ namespace chat_test_task.Server.Data
                 },
                 new Message
                 {
+                    ChatId = chats[0].Id,
+                    UserId = users[2].Id,
+                    Text = "Guys, who's online right now?",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-5),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[0].Id,
+                    UserId = users[4].Id,
+                    Text = "I'm here, what's up?",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-4),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[0].Id,
+                    UserId = users[2].Id,
+                    Text = "Need someone to review my code",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-3),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[0].Id,
+                    UserId = users[5].Id,
+                    Text = "Let's take a look together",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-2),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[0].Id,
+                    UserId = users[4].Id,
+                    Text = "Alright, send me the link",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-1),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
                     ChatId = chats[1].Id,
                     UserId = users[3].Id,
-                    Text = "Ребят, кто делал отчёт по последнему спринту?",
-                    Timestamp = DateTime.UtcNow.AddMinutes(-5),
+                    Text = "Hey team, did anyone finish the sprint report?",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-20),
                     IsSystemMessage = false
                 },
                 new Message
                 {
                     ChatId = chats[1].Id,
                     UserId = users[1].Id,
-                    Text = "Я сделал, сейчас скину",
-                    Timestamp = DateTime.UtcNow.AddMinutes(-4),
+                    Text = "I did, sending it now",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-18),
                     IsSystemMessage = false
                 },
                 new Message
                 {
                     ChatId = chats[1].Id,
                     UserId = users[4].Id,
-                    Text = "Красава, дядь!",
-                    Timestamp = DateTime.UtcNow.AddMinutes(-3),
+                    Text = "Thanks man, you're the best!",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-15),
                     IsSystemMessage = false
                 },
                 new Message
                 {
-                    ChatId = chats[2].Id,
+                    ChatId = chats[1].Id,
                     UserId = users[3].Id,
-                    Text = "Привет! Как сам?",
+                    Text = "How much longer on this bug fix?",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-12),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[1].Id,
+                    UserId = users[1].Id,
+                    Text = "Almost done, couple more hours",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-10),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[1].Id,
+                    UserId = users[4].Id,
+                    Text = "I can help if you need",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-8),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[1].Id,
+                    UserId = users[1].Id,
+                    Text = "Thanks, I'm good for now",
                     Timestamp = DateTime.UtcNow.AddMinutes(-2),
                     IsSystemMessage = false
                 },
                 new Message
                 {
                     ChatId = chats[2].Id,
+                    UserId = users[3].Id,
+                    Text = "Hey! How are you doing?",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-15),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[2].Id,
                     UserId = users[1].Id,
-                    Text = "Норм, делаю тестовое задание",
-                    Timestamp = DateTime.UtcNow.AddMinutes(-1),
+                    Text = "Good! Working on a test task",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-12),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[2].Id,
+                    UserId = users[3].Id,
+                    Text = "Oh nice! Tell me how it goes later?",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-10),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[2].Id,
+                    UserId = users[1].Id,
+                    Text = "Sure thing! So far so good actually",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-8),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[2].Id,
+                    UserId = users[3].Id,
+                    Text = "That's awesome! Keep it up 💪",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-5),
                     IsSystemMessage = false
                 },
                 new Message
@@ -184,6 +280,46 @@ namespace chat_test_task.Server.Data
                     UserId = users[1].Id,
                     Text = "Погнали, через 10 минут возле Алика",
                     Timestamp = DateTime.UtcNow.AddMinutes(-28),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[3].Id,
+                    UserId = users[2].Id,
+                    Text = "Who's getting shawarma?",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-20),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[3].Id,
+                    UserId = users[4].Id,
+                    Text = "I can go grab some",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-18),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[3].Id,
+                    UserId = users[1].Id,
+                    Text = "Get me one too, chicken please",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-15),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[3].Id,
+                    UserId = users[5].Id,
+                    Text = "Beef for me, no onions",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-12),
+                    IsSystemMessage = false
+                },
+                new Message
+                {
+                    ChatId = chats[3].Id,
+                    UserId = users[4].Id,
+                    Text = "Got it, heading out in 10 mins",
+                    Timestamp = DateTime.UtcNow.AddMinutes(-8),
                     IsSystemMessage = false
                 }
             };

@@ -17,9 +17,15 @@ export default function Message({ message, isCurrentUser }: MessageProps) {
     };
 
     if (message.isSystemMessage) {
+        const words = message.text.split(' ');
+        const firstWord = words[0];
+        const restText = words.slice(1).join(' ');
+
         return (
             <div className="message-system">
-                <span className="system-text">{message.text}</span>
+                <span className="system-text">
+                    <span className="system-username">{firstWord}</span> {restText}
+                </span>
             </div>
         );
     }

@@ -53,7 +53,11 @@ export default function ChatHeader({ chat, onToggleMute }: ChatHeaderProps) {
                     <div className="chat-header-info">
                         <h2 className="chat-header-title">{chat.name}</h2>
                         <span className="chat-header-subtitle">
-                            {chat.type === 'Group' ? `Group Chat with ${userCount} Users` : 'Direct Message'}
+                            {chat.type === 'Group' ? (
+                                <>Group Chat with <span className="user-count">{userCount} Users</span></>
+                            ) : (
+                                'Direct Message'
+                            )}
                         </span>
                     </div>
                 </div>
@@ -81,12 +85,13 @@ export default function ChatHeader({ chat, onToggleMute }: ChatHeaderProps) {
                     <button
                         className="header-btn header-btn-options"
                         title="Options"
+                        onClick={() => setShowMenu(!showMenu)}
                     >
-                        <svg width="6" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <circle cx="12" cy="12" r="2"/>
-                            <circle cx="12" cy="5" r="2"/>
-                            <circle cx="12" cy="19" r="2"/>
-                        </svg>
+                        <div className="three-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </button>
                     <div ref={menuRef} style={{ position: 'relative' }}>
                         {showMenu && (

@@ -9,14 +9,10 @@ function App() {
     const [chats, setChats] = useState<Chat[]>([]);
     const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
     const [loading, setLoading] = useState(true);
-    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
     const [mutedChats, setMutedChats] = useState<Set<number>>(new Set());
 
     useEffect(() => {
         loadChats();
-        const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' || 'dark';
-        setTheme(savedTheme);
-        document.documentElement.setAttribute('data-theme', savedTheme);
 
         const savedMuted = localStorage.getItem('mutedChats');
         if (savedMuted) {
@@ -40,13 +36,6 @@ function App() {
 
     const handleMessageSent = async () => {
         await loadChats();
-    };
-
-    const toggleTheme = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
     };
 
     const handleTogglePin = (chatId: number) => {
@@ -94,8 +83,6 @@ function App() {
                 onChatSelect={setSelectedChat}
                 onTogglePin={handleTogglePin}
                 onToggleFavorite={handleToggleFavorite}
-                theme={theme}
-                onToggleTheme={toggleTheme}
                 mutedChats={mutedChats}
                 onToggleMute={handleToggleMute}
             />

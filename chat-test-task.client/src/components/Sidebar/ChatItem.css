@@ -64,7 +64,7 @@
     font-size: 22px;
     font-weight: 700;
     color: #e8ecf4;
-    margin: 0 0 4px 0;
+    margin: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -116,10 +116,6 @@
 
 .chat-item.selected .chat-preview {
     color: rgba(255, 255, 255, 0.8) !important;
-}
-
-.chat-item.selected .chat-time {
-    color: #ffffff !important;
 }
 
 .chat-actions {

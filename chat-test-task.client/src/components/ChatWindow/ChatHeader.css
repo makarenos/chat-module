@@ -5,7 +5,7 @@
     min-height: 67px;
     padding: 0 24px;
     background: #28293D;
-    border-bottom: 1px solid #1e2329;
+    border-bottom: 2px solid #00d9a3;
 }
 
 .chat-header-left {
@@ -42,7 +42,11 @@
 .chat-header-subtitle {
     font-size: 13px;
     font-weight: 600;
-    color: #00CCFF;
+    color: #ffffff;
+}
+
+.chat-header-subtitle .user-count {
+    color: #1474B8;
 }
 
 .chat-header-actions {
@@ -87,6 +91,33 @@
 
 .header-btn-settings:hover {
     background: rgba(255, 255, 255, 0.1);
+}
+
+.header-btn-options {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.three-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+}
+
+.three-dots span {
+    width: 5px;
+    height: 5px;
+    background: #808080;
+    border-radius: 50%;
+    display: block;
+}
+
+.header-btn-options:hover .three-dots span {
+    background: #00d9a3;
 }
 
 .header-menu {
